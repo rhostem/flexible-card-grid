@@ -2,8 +2,16 @@
 
 	'use strict';
 
-	console.log('asdas');
-	var flexCard = new FlexibleCardGrid();
+	var flexCard = new FlexibleCardGrid({
+
+		cards: cards_data,
+		horizontalTileCount: 2,
+
+	});
+
+	var aligned = flexCard.getAlignedCards();
+	console.log(aligned);
+
 
 	// $(document).ready(function() {
 	// 	setCardPosition( flowingCard({ 'cards': cards, 'horizontalTileCount': 1 } ) );
