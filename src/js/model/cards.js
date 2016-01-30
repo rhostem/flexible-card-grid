@@ -13,42 +13,42 @@ var cards_data = (function(){
 			height: 2,
 			posX: undefined,
 			posY: undefined,
-			content: 'card 1'
+			content: 'card 2'
 		},
 		{
 			width: 1,
 			height: 1,
 			posX: undefined,
 			posY: undefined,
-			content: 'card 1'
+			content: 'card 3'
 		},
 		{
 			width: 1,
-			height: 1,
-			posX: undefined,
-			posY: undefined,
-			content: 'card 1'
-		},
-		{
-			width: 2,
 			height: 2,
 			posX: undefined,
 			posY: undefined,
-			content: 'card 1'
+			content: 'card 4'
 		},
 		{
-			width: 2,
-			height: 1,
+			width: 1,
+			height: 2,
 			posX: undefined,
 			posY: undefined,
-			content: 'card 1'
+			content: 'card 5'
 		},
 		{
 			width: 1,
 			height: 1,
 			posX: undefined,
 			posY: undefined,
-			content: 'card 1'
+			content: 'card 6'
+		},
+		{
+			width: 1,
+			height: 1,
+			posX: undefined,
+			posY: undefined,
+			content: 'card 7'
 		}
 	];
 

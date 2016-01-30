@@ -3,7 +3,27 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Flexible Card Grid</title>
-	<link rel="stylesheet" type="text/css" href="../lib/normalize.css">
+	<link rel="stylesheet" type="text/css" href="lib/normalize.css">
+	<style type="text/css">
+		* {
+			box-sizing: border-box;
+		}
+		div {
+			border: 1px solid #f00;
+		}
+		.container{
+			/*width: 960px;*/
+			width: 480px;
+			position: relative;
+		}
+		.card {
+			-webkit-transition: all 0.6s ease;
+			-moz-transition: all 0.6s ease;
+			transition: all 0.6s ease;
+			position: absolute;
+		}
+
+	</style>
 	<script type="text/javascript" src="lib/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="src/js/flexible-card-grid.js"></script>
 	<script type="text/javascript" src="src/js/model/cards.js"></script>
