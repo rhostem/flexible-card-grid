@@ -4,43 +4,49 @@ var FlexibleCardGrid = (function() {
 	function FlexibleCardGrid( option ) {
 
 		var base_size = 240,
-			base_height = 240, // percentage
-			horizontalTileCount = option.horizontalTileCount,
-			cards = option.cards, // array containing card data
+			base_height = 240, //
+			horizontalTileCount = option.horizontalTileCount, // number of one tile(1x1) in the container horizontally
+			cards = option.cards, // array having card data
 			$container = option.container;
+
+		this.init() = function() {
+			this.alignCards();
+			this.addCardElement();
+			this.adjustToViewport();
+		}
 
 
 		this.alignCards = function(){
 
 			var cur_y,
-				tiles = [],
-				card_area,
+				tiles = [], // tiles set having all of the cards area
+				card_area, // one of a card in the container
 				isCardPositionSet; // check if a card got it's own position
 
-			// traverse cards
+			// traverse cards, reset position x
 			for (var card_idx = 0; card_idx < cards.length; card_idx++) {
 
-				// init x=0, y=0
 				// this.resetCardPosition(cards[card_idx]);
 				isCardPositionSet = false;
 
 				// check if width of a card overs widths of the container
 				if(cards[card_idx].width > horizontalTileCount){
+
+					// terminate the method
 					console.error('size of the card num ' + card_idx +' is larger than container.');
 					return null;
 				}
 
-				cur_y = 0;
+				cur_y = 0; // reset position y
 
-
-				while( !isCardPositionSet ) {
+				while( !isCardPositionSet ) { // infinite loop until get a position
 
 					// traverse x position wihin container width
 					for (var cur_x = 0, isDuplicate ; cur_x < horizontalTileCount; cur_x++) {
 
 						card_area = [];
 
-						// 현재 위치에서 가로 넓이가 컨테이너 넓이를 넘지 않아야 한다.
+						// width of a card must not overflow
 						if(cur_x + cards[card_idx].width > horizontalTileCount){
 							break;
 						}
@@ -61,11 +67,12 @@ var FlexibleCardGrid = (function() {
 
 						isDuplicate = false;
 
+						// duplication check between a card and tiles set
 						for (var chk_cidx = 0; chk_cidx < card_area.length; chk_cidx++) {
 							for (var chk_tidx = 0; chk_tidx < tiles.length; chk_tidx++) {
 
 								if( (card_area[chk_cidx].x === tiles[chk_tidx].x) && (card_area[chk_cidx].y === tiles[chk_tidx].y) ){
-									// 카드 영역과 타일 영역 중에 겹치는 부분이 있음
+
 									isDuplicate = true;
 								}
 							}
@@ -77,10 +84,10 @@ var FlexibleCardGrid = (function() {
 
 						}else{
 
-							// 포지션을 찾았음. 더이상 컨테이너 내부를 탐색할 필요 없음
+							// got position. need no more check
 							isCardPositionSet = true;
 
-							// 카드 영역을 타일에 추가
+							// add card area to tiles set
 							for (var i = 0; i < card_area.length; i++) {
 								tiles.push(card_area[i]);
 							}
@@ -97,7 +104,7 @@ var FlexibleCardGrid = (function() {
 					if(isCardPositionSet){
 						break; // break infinite while loop
 					}else{
-						cur_y++;
+						cur_y++; // go to the next row
 					}
 
 				}// end of while( !isCardPositionSet )
@@ -133,29 +140,30 @@ var FlexibleCardGrid = (function() {
 			}
 		}
 
-		this.adjustToViewport =  function( viewportSize ) {
-			// console.log(viewportSize);
+		this.adjustToViewport =  function() {
 
-			if( viewportSize < 480){
+			var viewportSize = window.innerWidth;
+
+			if( viewportSize < base_size*2){
 				$('.container').css('width', base_size*1);
 				horizontalTileCount = 1
 				this.alignCards();
 				this.updateCardPosition();
 			}
-			else if( viewportSize < 720){
+			else if( viewportSize < base_size*3){
 				$('.container').css('width', base_size*2);
 				horizontalTileCount = 2
 				this.alignCards();
 				this.updateCardPosition();
 			}
-			else if( viewportSize < 920){
+			else if( viewportSize < base_size*4){
 				$('.container').css('width', base_size*3);
 				horizontalTileCount = 3
 				this.alignCards();
 				this.updateCardPosition();
 			}
 			else{
-				$('.container').css('width', 960);
+				$('.container').css('width', base_size*4);
 				horizontalTileCount = 4
 				this.alignCards();
 				this.updateCardPosition();
@@ -171,7 +179,6 @@ var FlexibleCardGrid = (function() {
 				$cards.eq(i).css('top', base_size*cards[i].posY);
 			}
 		}
-
 
 		this.createTile = function(posX, posY) {
 			return { x: posX, y: posY }
