@@ -8,23 +8,17 @@
 
 		var flexCard = new FlexibleCardGrid({
 			cards: cards_data,
-			horizontalTileCount: 4,
-			container: $('.container')
+			// horizontalTileCount: 4,
+			selector: '.container'
 		});
 
-		flexCard.alignCards();
-		flexCard.addCardElement();
-		flexCard.adjustToViewport( window.innerWidth );
+		flexCard.init();
 
-		$(window).resize(function() {
-			flexCard.adjustToViewport( window.innerWidth );
-		});
+		// $(window).resize( function() {
+		// 	flexCard.adjustToViewport();
+		// });
 
 	});
-
-
-
-
 
 
 })(window);
