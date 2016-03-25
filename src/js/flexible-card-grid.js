@@ -8,7 +8,7 @@ var FlexibleCardGrid = (function() {
     var $container = $(option.selector);
 
     var container_width;
-    var horizontalTileCount;
+    var horizontalTileCount = 4; // default
 
     var base_size;
     var base_height;
@@ -153,11 +153,23 @@ var FlexibleCardGrid = (function() {
      */
     this.adjustToViewport =  function() {
 
-      var viewportSize = window.innerWidth;
+      // var viewportSize = window.innerWidth;
+      var viewportSize = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
-      horizontalTileCount = viewportSize < 768 ? 2 : 3 ;
-      container_width = $container.innerWidth();
-      base_size = container_width/horizontalTileCount;
+      if(viewportSize < 442){
+        horizontalTileCount = 1
+      }
+      else if(viewportSize < 768){
+        horizontalTileCount = 2
+      }
+      else if(viewportSize < 992){
+        horizontalTileCount = 3
+      }
+      else {
+        horizontalTileCount = 4;
+      }
+
+      base_size = viewportSize/horizontalTileCount;
       base_height = base_size;
 
       this.alignCards();
